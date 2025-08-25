@@ -1,0 +1,307 @@
+/* Search bar container */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 102, 0, 0.08);
+    padding: 8px 14px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.search-bar .search-icon {
+    color: #ff6600;
+    font-size: 1rem;
+    margin-right: 8px;
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #333;
+    font-size: 0.95rem;
+    width: 180px;
+}
+
+.search-bar:hover,
+.search-bar:focus-within {
+    border-color: #ff6600;
+    background: rgba(255, 102, 0, 0.12);
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.15);
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 102, 0, 0.08);
+    padding: 8px 14px;
+    color: #ff6600;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    height: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.icon-btn:hover {
+    background: #ff6600;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.icon-btn .issues-icon {
+    font-size: 0.85rem;
+}
+
+.custom-dropdown-wrapper {
+    position: relative;
+    
+}
+
+/* Selected option with icon */
+.selected-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Arrow icon */
+.dropdown-arrow {
+    margin-left: 6px;
+    font-size: 0.75rem;
+    color: #ff6600;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 10;
+    width: 180px;
+    opacity: 0;
+    transform: translateY(-5px);
+    animation: fadeIn 0.25s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dropdown item */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    color: #444;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 102, 0, 0.08);
+}
+
+/* Icon style */
+.dropdown-icon {
+    font-size: 1rem;
+    color: #ff6600;
+}
+
+.rightNav,
+.leftNav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brandLogo{
+    height: 60px;
+    cursor: pointer;
+}
+
+.fab-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.fab-button {
+    background: linear-gradient(135deg, #ff6600, #ff884d);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.fab-button:hover {
+    background: #e65c00;
+}
+
+.fab-button.open {
+    transform: rotate(45deg);
+}
+
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* smaller gap between buttons */
+    margin-bottom: 10px;
+    align-items: flex-end;
+    border-radius: 10px;
+}
+
+.fab-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: black;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #ff6600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    justify-content: flex-start;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.fab-item:hover {
+    background: white;
+}
+
+.fab-item[style*="white"] {
+    background:  white!important;
+    color: #ff6600 !important;
+}
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+
+    .leftNav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Decrease font size for all buttons and dropdown items */
+    .icon-btn {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        height: 34px;
+        gap: 4px;
+    }
+
+    .icon-btn .issues-icon,
+    .dropdown-icon {
+        font-size: 0.75rem;
+        /* smaller icons */
+    }
+
+    .dropdown-item {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    .search-bar {
+        padding: 10px 10px;
+    }
+
+    .search-bar input {
+        font-size: 0.8rem;
+        width: 130px;
+        /* narrower for mobile */
+    }
+
+    .search-bar .search-icon {
+        font-size: 0.85rem;
+    }
+
+    .selected-option p {
+        font-size: 0.75rem;
+    }
+
+    .dropdown-arrow {
+        font-size: 0.65rem;
+    }
+
+    .rightNav {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 375px) {
+    .leftNav {
+        gap: 4px;
+    }
+
+    .brandLogo {
+        height: 45px; /* smaller logo */
+    }
+
+    .search-bar {
+        padding: 4px 6px;
+        border-radius: 8px;
+    }
+
+    .search-bar input {
+        font-size: 0.75rem;
+        width: 110px; /* narrower for ultra-small screens */
+    }
+
+    .search-bar .search-icon {
+        font-size: 0.75rem;
+        margin-right: 4px;
+    }
+
+    .fab-item {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+        min-width: 120px;
+        gap: 5px;
+    }
+
+    .fab-menu {
+        gap: 6px; /* even smaller gap on very small devices */
+    }
+
+    .fab-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+    }
+}
+

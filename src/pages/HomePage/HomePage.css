@@ -1,0 +1,106 @@
+/* ================= Page Section ================= */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    overflow: hidden;
+}
+
+/* ================= Image Section ================= */
+.login-image {
+    flex: 1;
+    height: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 1s ease, opacity 0.5s ease;
+    position: relative;
+}
+
+
+.login-image.zoom {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 32, 39, 0.3);
+}
+
+.error-text {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    text-align: left;
+}
+
+
+/* ================= Form Section ================= */
+.login-form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #0f2027;
+    overflow: hidden;
+}
+
+/* ================= Register Text ================= */
+.register-text {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.register-text a {
+    color: #ff8533;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+/* ================= Responsive ================= */
+@media (min-width: 768px) {
+    .login-container {
+        flex-direction: row;
+    }
+
+    .login-image {
+        display: block;
+        height: 100%;
+    }
+
+    .glass-effect {
+        padding: 1rem;
+        margin: 0 15px;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 767px) {
+    h2 {
+        font-size: 1rem;
+    }
+
+    .login-image {
+        display: none;
+    }
+
+    .brand-logo {
+        display: none;
+    }
+
+    .glass-effect {
+        padding: 1rem;
+        margin: 0 15px;
+    }
+}

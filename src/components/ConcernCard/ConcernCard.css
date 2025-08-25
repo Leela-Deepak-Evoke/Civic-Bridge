@@ -1,0 +1,229 @@
+.issue-card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 12px 0px;
+}
+
+.issue-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.issue-img {
+    position: relative;
+    height: 200px;
+}
+
+.issue-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.status-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.status-badge.pending {
+    background: #ffc107;
+}
+
+.status-badge.ongoing {
+    background: #17a2b8;
+}
+
+.status-badge.resolved {
+    background: #28a745;
+}
+
+.issue-content {
+    padding: 14px 16px;
+}
+
+.issue-desc {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    text-align: start;
+}
+
+.issue-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.issue-meta svg {
+    color: #ff6600;
+}
+
+.issue-reported {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #555;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.user-icon {
+    font-size: 1.1rem;
+    margin-right: 6px;
+    color: #555;
+}
+
+.issue-comments button {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: #007bff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.comments-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+.comment-avatar {
+    flex-shrink: 0;
+    font-size: 1.8rem;
+    color: #888;
+}
+
+.comment-item small {
+    display: block;
+    color: #888;
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-bubble {
+    background: #f0f2f5;
+    padding: 8px 12px;
+    border-radius: 18px;
+    max-width: 280px;
+}
+
+.comment-text {
+    font-size: 0.85rem;
+    color: #222;
+    margin: 0;
+    text-align: start;
+}
+
+.comment-time {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 2px;
+    text-align: start;
+}
+
+.add-comment-box {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 6px 10px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-comment-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    background: transparent;
+}
+
+.add-comment-box .send-btn {
+    background: #ff6600;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    margin-left: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-comment-box .send-btn:hover {
+    background: #e05500;
+}
+
+
+/* Responsive */
+@media (max-width: 480px) {
+    .issue-card {
+        max-width: 100%;
+    }
+
+    .issue-meta {
+
+        gap: 6px;
+    }
+
+    .issue-desc {
+        text-align: start;
+        font-size: 0.8rem;
+    }
+
+    .comment-text {
+        text-align: start;
+
+    }
+
+    .comment-time {
+        text-align: start;
+    }
+}
+
+@media (min-width: 768px) {
+    .comment-bubble {
+        max-width: 400px;
+    }
+}

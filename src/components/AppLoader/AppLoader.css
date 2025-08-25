@@ -1,0 +1,42 @@
+
+/* Common styles for all rings */
+.loader-ring {
+    border-radius: 50%;
+    border: 6px solid transparent;
+    position: absolute;
+    animation: spin 1.5s linear infinite;
+}
+
+/* 1st Layer (Outer Orange) */
+.ring-1 {
+    width: 80px;
+    height: 80px;
+    border-top: 6px solid orange;
+    animation-duration: 1s;
+}
+
+/* 2nd Layer (Middle White) */
+.ring-2 {
+    width: 60px;
+    height: 60px;
+    border-top: 6px solid white;
+    animation-duration: 1.5s;
+}
+
+/* 3rd Layer (Inner Orange) */
+.ring-3 {
+    width: 40px;
+    height: 40px;
+    border-top: 6px solid orange;
+    animation-duration: 2s;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

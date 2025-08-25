@@ -1,0 +1,27 @@
+.status-card{
+    background: white;
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    width: 250px;
+    margin: 28px 0px;
+    text-align: center;
+}
+
+.status-icon {
+    font-size: 4rem;
+    color: #ff7b00;
+    margin-bottom: 10px;
+}
+
+.dashboardHead{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
+
+.viewStatus{
+    font-size: 0.85rem;
+    color: gray;
+}

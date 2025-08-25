@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0f2027;
+  color: white;
+}
+
+.page-container {
+  background: transparent;
+  padding-top: 30px;
+}
+
+.page-container::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  background: linear-gradient(135deg, black 30%, #ff7b00 70%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.chip.selected {
+  background: linear-gradient(135deg, #ff7b00 30%, black 70%);
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ================= Floating Particles ================= */
+.particles::before,
+.particles::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: float 15s infinite ease-in-out;
+}
+
+.particles::after {
+  top: 60%;
+  left: 70%;
+}
+
+.particles::before {
+  top: 10%;
+  left: 20%;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+/* ================= Titles ================= */
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.subtitle {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ================= Input Fields ================= */
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 2px solid #ff6600;
+  border-left: 2px solid #ff6600;
+  background: transparent;
+  border-bottom-left-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #ff8533;
+}
+
+.input-group label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+  top: -8px;
+  font-size: 0.75rem;
+  color: #ff8533;
+}
+
+/* ================= Button ================= */
+.modern-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ff6600, #ff8533);
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modern-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4);
+}
+
+/* ================= Links ================= */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #ff8533;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+/* ================= Logo ================= */
+.login-logo {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+/* ================= Glassmorphism Effect ================= */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 2rem;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  color: white;
+  text-align: center;
+}
+
+/* ================= Background Gradient Animation ================= */
+.background-animation {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  z-index: 0;
+}
+
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .page-container {
+    background: transparent;
+    overflow: hidden;
+    scrollbar-width: none;
+  }
+}
