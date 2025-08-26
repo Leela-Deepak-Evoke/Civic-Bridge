@@ -3,10 +3,16 @@ import axiosInstance from "../../api/axiosInstance";
 import AppLoader from '../../components/AppLoader/AppLoader';
 import ConcernCard from '../../components/ConcernCard/ConcernCard';
 import AppPopUpModal from "../AppPopUpModal/AppPopUpModal";
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const MyConcerns = ({ heading, isOpen, onClose }) => {
   const [myConcerns, setMyConcerns] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [appsnackbar, setAppSnackbar] = useState(null);
+
+  const showSnackbar = (msg, type) => {
+    setAppSnackbar({ msg, type });
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -36,7 +42,11 @@ const MyConcerns = ({ heading, isOpen, onClose }) => {
         );
         setMyConcerns(data.data || []);
       } catch (error) {
-        console.error("Error fetching my concerns:", error);
+        const message =
+          error.response?.data?.message || // backend error message
+          error.message ||                 // axios message (e.g., "Request failed with status code 401")
+          "Something went wrong";          // fallback
+        showSnackbar(message, "error");
       } finally {
         setLoading(false);
       }
@@ -58,7 +68,15 @@ const MyConcerns = ({ heading, isOpen, onClose }) => {
           ))}
         </div>
       )}
+      {appsnackbar && (
+        <AppSnackbar
+          message={appsnackbar.msg}
+          type={appsnackbar.type}
+          onClose={() => setAppSnackbar(null)}
+        />
+      )}
     </AppPopUpModal>
+
   );
 };
 

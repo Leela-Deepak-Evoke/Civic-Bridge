@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AppPopUpModal from "../AppPopUpModal/AppPopUpModal";
 import "./UploadConcern.css";
 import axiosInstance from "../../api/axiosInstance";
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const UploadConcernModal = ({ isOpen, onClose, userId, onConcernAdded }) => {
     const [title, setTitle] = useState("");
@@ -10,6 +11,11 @@ const UploadConcernModal = ({ isOpen, onClose, userId, onConcernAdded }) => {
     const [imageUrl, setImageUrl] = useState("");
     const [previewUrl, setPreviewUrl] = useState("");
     const [errors, setErrors] = useState({});
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
 
     const locationOptions = ["Hyderabad", "Mumbai", "Delhi", "Bangalore", "Chennai"];
 
@@ -79,9 +85,14 @@ const UploadConcernModal = ({ isOpen, onClose, userId, onConcernAdded }) => {
             setPreviewUrl("");
             setErrors({});
 
+            showSnackbar("Concern Posted Successfully!", "success");
             onClose(); // close modal
         } catch (err) {
-            console.error("Error submitting concern:", err);
+            const message =
+                err.response?.data?.message || // backend error message
+                err.message ||                 // axios message (e.g., "Request failed with status code 401")
+                "Something went wrong";          // fallback
+            showSnackbar(message, "error");
             setErrors({ submit: "Failed to submit concern. Please try again." });
         }
     };
@@ -170,6 +181,13 @@ const UploadConcernModal = ({ isOpen, onClose, userId, onConcernAdded }) => {
                     </p>
                 )}
             </div>
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </AppPopUpModal>
     );
 };
