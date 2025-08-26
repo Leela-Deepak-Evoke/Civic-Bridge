@@ -1,0 +1,95 @@
+.snackbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    /* Mobile-first: take most of the width */
+    max-width: 400px;
+    /* Don’t get too wide on big screens */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.4s ease-out;
+    z-index: 9999;
+}
+
+/* Success = Black + Orange accent */
+.snackbar-success {
+    background: black;
+    border-left: 6px solid orange;
+}
+
+/* Warning */
+.snackbar-warning {
+    background: #ff9800;
+    border-left: 6px solid white;
+}
+
+/* Error */
+.snackbar-error {
+    background: #d32f2f;
+    border-left: 6px solid orange;
+}
+
+.snackbar-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.snackbar-message {
+    flex: 1;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.snackbar-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+/* 🔎 Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* ✅ Tablet (>= 600px) */
+@media (min-width: 600px) {
+    .snackbar {
+        font-size: 16px;
+        padding: 14px 20px;
+        width: auto;
+        /* shrink to content */
+        min-width: 320px;
+        max-width: 450px;
+    }
+}
+
+/* ✅ Desktop (>= 1024px) */
+@media (min-width: 1024px) {
+    .snackbar {
+        font-size: 16px;
+        padding: 16px 24px;
+        bottom: 30px;
+        /* more breathing space */
+        max-width: 500px;
+    }
+}

@@ -12,6 +12,7 @@ import useWindowSize from '../../hooks/useWindowSize'
 import axiosInstance from '../../api/axiosInstance';
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from '../../firebase';
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const MainPage = () => {
     const { width } = useWindowSize();
@@ -25,6 +26,11 @@ const MainPage = () => {
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
 
     const { id, idToken } = JSON.parse(parsedData);
     const authHeaders = { Authorization: `Bearer ${idToken}` };
@@ -56,6 +62,7 @@ const MainPage = () => {
             }
         } catch (err) {
             console.error("Error fetching all data:", err);
+            showSnackbar("Something went wrong!", "error");
         }
     };
 
@@ -146,6 +153,13 @@ const MainPage = () => {
             </div>
 
             <ImageCarousel images={images} interval={4000} />
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </div>
     )
 }

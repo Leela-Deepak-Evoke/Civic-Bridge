@@ -11,11 +11,17 @@ import { useAuth } from "../../context/AuthContext";
 import MyConcernModal from "../../utils/MyConcernsModal/MyConcerns";
 import UploadConcernModal from "../../utils/UploadConernModal/UploadConcern";
 import { useNavigate } from "react-router-dom";
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const HeaderLayout = ({ selectedCity, selectedStatus, onSelectStatus, onSearch, onConcernAdded }) => {
     const { logout } = useAuth();
     const navigate = useNavigate();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
 
     const statuses = [
         { label: "Pending", icon: <FaClock /> },
@@ -208,9 +214,14 @@ const HeaderLayout = ({ selectedCity, selectedStatus, onSelectStatus, onSearch, 
                                     onClick={async () => {
                                         try {
                                             await logout();
+                                            showSnackbar("Logout successful!", "success");
                                             navigate("/login", { replace: true });
                                         } catch (error) {
-                                            console.log("Error: ", error);
+                                            const message =
+                                                error.response?.data?.message || // backend error message
+                                                error.message ||                 // axios message (e.g., "Request failed with status code 401")
+                                                "Something went wrong";          // fallback
+                                            showSnackbar(message, "error");
                                         }
                                         setFabOpen(false);
                                     }}
@@ -243,6 +254,14 @@ const HeaderLayout = ({ selectedCity, selectedStatus, onSelectStatus, onSearch, 
                 userId={userId}
                 onConcernAdded={onConcernAdded}
             />
+
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </header>
     );
 };

@@ -4,6 +4,7 @@ import "./ProfileCard.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../api/axiosInstance";
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const ProfileCard = ({ username, role, onSelectLocation, concerns }) => {
 
@@ -11,6 +12,12 @@ const ProfileCard = ({ username, role, onSelectLocation, concerns }) => {
     const navigate = useNavigate();
     const { logout } = useAuth();
     const parsedData = localStorage.getItem('UserData');
+
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
 
 
     const handleSelect = (location) => {
@@ -43,7 +50,11 @@ const ProfileCard = ({ username, role, onSelectLocation, concerns }) => {
                 });
 
             } catch (error) {
-                console.error("Error fetching concerns:", error);
+                const message =
+                    error.response?.data?.message || // backend error message
+                    error.message ||                 // axios message (e.g., "Request failed with status code 401")
+                    "Something went wrong";          // fallback
+                showSnackbar(message, "error");
             }
         };
 
@@ -59,9 +70,14 @@ const ProfileCard = ({ username, role, onSelectLocation, concerns }) => {
     const handleLogout = async () => {
         try {
             await logout();
+            showSnackbar("Logout successful!", "success");
             navigate("/login", { replace: true });
         } catch (error) {
-            console.log("Error: ", error);
+            const message =
+                error.response?.data?.message || // backend error message
+                error.message ||                 // axios message (e.g., "Request failed with status code 401")
+                "Something went wrong";          // fallback
+            showSnackbar(message, "error");
         }
     };
 
@@ -89,6 +105,13 @@ const ProfileCard = ({ username, role, onSelectLocation, concerns }) => {
                     </div>
                 ))}
             </div>
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </div>
     );
 };

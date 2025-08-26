@@ -5,7 +5,7 @@ import civicBridgeRectLogo from "../../assets/CivicBridgeRectLogo.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../api/axiosInstance";
-
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const HomePage = () => {
     const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -13,6 +13,11 @@ const HomePage = () => {
     const [isRegistering, setIsRegistering] = useState(false);
     const navigate = useNavigate();
     const { login, user } = useAuth();
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
 
     useEffect(() => {
         if (user) {
@@ -75,25 +80,31 @@ const HomePage = () => {
 
         try {
             if (isRegistering) {
-                // Registration API still direct (if you don’t have context for it yet)
                 const payload = {
                     name: formData.name,
                     email: formData.username,
                     password: formData.password,
-                    role: "user"
+                    role: "user",
                 };
 
-                await axiosInstance.post("/users", payload);
-                
+                const res = await axiosInstance.post("/users", payload);
+                if (res.data != null) {
+                    showSnackbar("User registered successfully!", "success");
+                    setIsRegistering(false);
+                }
             } else {
-                // ✅ Use login from AuthContext
                 await login(formData.username, formData.password);
+                showSnackbar("Login successful!", "success");
             }
 
             setFormData({ name: "", username: "", password: "" });
             setErrors({});
         } catch (error) {
-            console.log(error)
+            const message =
+                error.response?.data?.message || // backend error message
+                error.message ||                 // axios message (e.g., "Request failed with status code 401")
+                "Something went wrong";          // fallback
+            showSnackbar(message, "error");
         } finally {
             setIsLoggingIn(false);
         }
@@ -202,6 +213,13 @@ const HomePage = () => {
                     </p>
                 </div>
             </div>
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </div>
     );
 };

@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { FaTachometerAlt } from 'react-icons/fa';
 import './StatusDashboard.css';
 import axiosInstance from '../../api/axiosInstance';
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
+
 
 const StatusDashboard = ({ concerns }) => {
     const parsedData = localStorage.getItem('UserData');
     const statuses = ["Pending", "Ongoing", "Resolved"];
-    // ✅ count concerns by status
+
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
+
     const statusCounts = statuses.reduce((acc, status) => {
         acc[status] = concerns.filter(c => c.status === status).length;
         return acc;
@@ -29,7 +37,11 @@ const StatusDashboard = ({ concerns }) => {
                     statusCountsObj[status] = statusResponses[index].data.data.length;
                 });
             } catch (error) {
-                console.log("Error: ", error);
+                const message =
+                    error.response?.data?.message || // backend error message
+                    error.message ||                 // axios message (e.g., "Request failed with status code 401")
+                    "Something went wrong";          // fallback
+                showSnackbar(message, "error");
             }
         };
 
@@ -55,6 +67,14 @@ const StatusDashboard = ({ concerns }) => {
                     </div>
                 ))}
             </div>
+
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </div>
     );
 };

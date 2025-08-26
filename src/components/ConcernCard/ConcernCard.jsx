@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
     FaMapMarkerAlt,
     FaRegClock,
@@ -9,12 +9,19 @@ import {
 } from "react-icons/fa";
 import "./ConcernCard.css";
 import axiosInstance from "../../api/axiosInstance";
+import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
 
 const IssueCard = ({ data, isMyConcern }) => {
     const [showComments, setShowComments] = useState(false);
     const [addingComment, setAddingComment] = useState(false);
     const [newComment, setNewComment] = useState("");
     const [comments, setComments] = useState(data.comments || []);
+
+    const [appsnackbar, setAppSnackbar] = useState(null);
+
+    const showSnackbar = (msg, type) => {
+        setAppSnackbar({ msg, type });
+    };
 
     // Sync comments whenever the data changes (new concern added)
     useEffect(() => {
@@ -51,6 +58,10 @@ const IssueCard = ({ data, isMyConcern }) => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
+            if (res.data != null) {
+                showSnackbar("Comment Posted sucessfully!", "success");
+            }
+
             const savedComment = res.data.data.at(-1);
 
             setComments((prev) => [
@@ -65,11 +76,13 @@ const IssueCard = ({ data, isMyConcern }) => {
             setAddingComment(false);
             setShowComments(true);
         } catch (error) {
-            console.log("Error adding comment:", error);
+            const message =
+                error.response?.data?.message || // backend error message
+                error.message ||                 // axios message (e.g., "Request failed with status code 401")
+                "Something went wrong";          // fallback
+            showSnackbar(message, "error");
         }
     };
-
-
 
     return (
         <div className="issue-card">
@@ -157,6 +170,13 @@ const IssueCard = ({ data, isMyConcern }) => {
                     )}
                 </div>
             </div>
+            {appsnackbar && (
+                <AppSnackbar
+                    message={appsnackbar.msg}
+                    type={appsnackbar.type}
+                    onClose={() => setAppSnackbar(null)}
+                />
+            )}
         </div>
     );
 };
