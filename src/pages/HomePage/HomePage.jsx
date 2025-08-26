@@ -93,7 +93,7 @@ const HomePage = () => {
             setFormData({ name: "", username: "", password: "" });
             setErrors({});
         } catch (error) {
-            console.log(error.response?.data?.message)
+            console.log(error)
         } finally {
             setIsLoggingIn(false);
         }
