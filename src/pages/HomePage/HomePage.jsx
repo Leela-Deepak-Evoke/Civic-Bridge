@@ -4,6 +4,7 @@ import streetImage from "../../assets/login.png";
 import civicBridgeRectLogo from "../../assets/CivicBridgeRectLogo.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import axiosInstance from "../../api/axiosInstance";
 
 
 const HomePage = () => {
@@ -87,7 +88,6 @@ const HomePage = () => {
             } else {
                 // ✅ Use login from AuthContext
                 await login(formData.username, formData.password);
-                
             }
 
             setFormData({ name: "", username: "", password: "" });
