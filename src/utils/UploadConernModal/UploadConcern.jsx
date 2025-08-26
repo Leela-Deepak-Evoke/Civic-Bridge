@@ -84,9 +84,8 @@ const UploadConcernModal = ({ isOpen, onClose, userId, onConcernAdded }) => {
             setImageUrl("");
             setPreviewUrl("");
             setErrors({});
-
-            showSnackbar("Concern Posted Successfully!", "success");
             onClose(); // close modal
+            showSnackbar("Concern Posted Successfully!", "success");
         } catch (err) {
             const message =
                 err.response?.data?.message || // backend error message
