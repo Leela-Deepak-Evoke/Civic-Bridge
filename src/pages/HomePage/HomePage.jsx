@@ -56,9 +56,9 @@ const HomePage = () => {
         }
 
         if (!formData.username.trim()) {
-            newErrors.username = "Username is required.";
+            newErrors.username = "Email is required.";
         } else if (formData.username.length < 4) {
-            newErrors.username = "Username must be at least 4 characters.";
+            newErrors.username = "Email must be at least 4 characters.";
         }
 
         if (!formData.password) {
@@ -155,7 +155,7 @@ const HomePage = () => {
                                 onChange={handleChange}
                                 placeholder=" "
                             />
-                            <label>Username</label>
+                            <label>Email</label>
                             {errors.username && <p className="error-text">{errors.username}</p>}
                         </div>
 

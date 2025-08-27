@@ -58,10 +58,6 @@ const IssueCard = ({ data, isMyConcern }) => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            if (res.data != null) {
-                showSnackbar("Comment Posted sucessfully!", "success");
-            }
-
             const savedComment = res.data.data.at(-1);
 
             setComments((prev) => [
