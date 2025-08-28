@@ -13,10 +13,12 @@ import axiosInstance from '../../api/axiosInstance';
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from '../../firebase';
 import AppSnackbar from "../../utils/AppSnackbar/AppSnackbar";
+import { useNavigate } from 'react-router-dom';
+import SessionTimeoutModal from '../../utils/SessionTimeOutModal/SessionTimeOutModal';
 
 const MainPage = () => {
     const { width } = useWindowSize();
-
+    const navigate = useNavigate();
     const parsedData = localStorage.getItem('UserData');
     const [name, setname] = useState('');
     const [role, setrole] = useState('');
@@ -27,12 +29,13 @@ const MainPage = () => {
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [appsnackbar, setAppSnackbar] = useState(null);
+    const [showSessionTimeout, setShowSessionTimeout] = useState(false);
 
     const showSnackbar = (msg, type) => {
         setAppSnackbar({ msg, type });
     };
 
-    const { id, idToken } = JSON.parse(parsedData);
+    const { id, idToken, expiresIn } = JSON.parse(parsedData);
     const authHeaders = { Authorization: `Bearer ${idToken}` };
 
     const fetchAllData = async () => {
@@ -66,6 +69,18 @@ const MainPage = () => {
         }
     };
 
+    // ✅ Handle session expiry
+    useEffect(() => {
+        if (!expiresIn) return;
+
+        // expiresIn is in seconds, convert to ms
+        const timeout = setTimeout(() => {
+            setShowSessionTimeout(true);
+        }, expiresIn * 1000);
+
+        return () => clearTimeout(timeout);
+    }, [expiresIn]);
+
     useEffect(() => {
         fetchAllData();
     }, [parsedData]);
@@ -94,6 +109,12 @@ const MainPage = () => {
     const formatText = (text) => {
         if (!text) return "";
         return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    };
+
+    const handleSessionExpired = () => {
+        localStorage.removeItem("UserData");
+        setShowSessionTimeout(false);
+        navigate("/login", { replace: true });
     };
 
     return (
@@ -159,6 +180,10 @@ const MainPage = () => {
                     type={appsnackbar.type}
                     onClose={() => setAppSnackbar(null)}
                 />
+            )}
+
+            {showSessionTimeout && (
+                <SessionTimeoutModal onConfirm={handleSessionExpired} />
             )}
         </div>
     )
