@@ -221,4 +221,9 @@
         width: 35px;
         height: 35px;
     }
+
+    .hero-overlay{
+        margin: 28px;
+    }
 }
+
