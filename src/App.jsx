@@ -7,7 +7,6 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import { useAuth } from './context/AuthContext';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 
-
 function App() {
   const { user, loading } = useAuth();
 
