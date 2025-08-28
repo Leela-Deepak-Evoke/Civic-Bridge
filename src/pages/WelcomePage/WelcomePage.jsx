@@ -2,6 +2,7 @@ import React from "react";
 import { FaBullhorn, FaBuilding, FaHandshake, FaUsers, FaCheckCircle } from "react-icons/fa";
 import "./WelcomePage.css";
 import { useNavigate } from "react-router-dom";
+import AppLogo from '../../assets/CivicBridgelogo.png'
 
 const WelcomePage = () => {
 
@@ -11,7 +12,7 @@ const WelcomePage = () => {
       {/* Hero Section */}
       <header className="welcome-hero">
         <div className="hero-overlay">
-          <h1 className="welcome-title">🌉 CivicBridge</h1>
+          <h1 className="welcome-title"> <img src={AppLogo} alt="logo" className="app-logo"/> CivicBridge</h1>
           <p className="welcome-tagline">
             Bridging the gap between <span>Citizens</span> and <span>Government</span>
           </p>
@@ -19,7 +20,7 @@ const WelcomePage = () => {
             <button className="btn primary" onClick={()=>navigate('/login')}>
               Get Started
             </button>
-            <button className="btn secondary">Learn More</button>
+            <button className="btn secondary">Contact Us</button>
           </div>
         </div>
       </header>
